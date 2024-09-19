@@ -23,16 +23,24 @@ export default function Scene() {
           <ScrollControls damping={0.5} pages={3}> {/* 3 pages for 3 sections */}
             <Model />
             <Stars />
-            <Scroll html>
+            <Scroll html style={{width: '100%'}}>
               {/* First Section (About Us) */}
-              <section id="about" className="h-screen flex flex-col items-start justify-end p-8">
-                <p className="text-lg md:text-xl lg:text-2xl text-white max-w-4xl font-thin">
-                  We are <br/>
-                  a team of passionate<br/>
-                  developers 
-                </p>
+              <section id="about" className="w-full h-screen flex flex-row justify-between items-end p-8">
+                <div className="flex flex-col">
+                  <p className="text-lg md:text-xl lg:text-4xl text-white max-w-4xl font-thin">
+                    Web3 <br />
+                    DeFi <br />
+                    Apps
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-lg md:text-xl lg:text-4xl text-white max-w-4xl font-thin">
+                    Innovative <br />
+                    Blockchain <br />
+                    Solutions
+                  </p>
+                </div>
               </section>
-
               {/* Second Section (Our Services) */}
               <section id="services" className="h-screen flex flex-col items-start justify-end p-8">
                 <p className="text-lg md:text-xl lg:text-2xl text-white max-w-4xl font-thin">
