@@ -4,16 +4,16 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Group } from "three";
 
-useGLTF.preload("/fog.glb");
+useGLTF.preload("/mystic_orb.glb");
 
 export default function Model() {
   const group = useRef<Group>(null);
-  const { nodes, materials, animations, scene } = useGLTF("/fog.glb");
+  const { nodes, materials, animations, scene } = useGLTF("/mystic_orb.glb");
   const { actions } = useAnimations(animations, scene);
   const scroll = useScroll();
   const { size, camera } = useThree(); 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
+  const [visible, setVisible] = useState(true); // State to manage visibility
 
   const handleMouseMove = (event: MouseEvent) => {
     const x = (event.clientX / size.width) * 2 - 1;
@@ -29,7 +29,6 @@ export default function Model() {
   }, [size]);
 
   useEffect(() => {
-   
     if (actions && actions["Experiment"]) {
       const action = actions["Experiment"];
       action.play();
@@ -51,10 +50,8 @@ export default function Model() {
       });
     }
   }, [materials]);
-  
 
   useFrame(() => {
-
     if (actions && actions["Experiment"]) {
       const action = actions["Experiment"];
       const clipDuration = action.getClip()?.duration;
@@ -71,14 +68,16 @@ export default function Model() {
 
     const zoomFactor = 10; 
     camera.position.z = 10 - scroll.offset * zoomFactor;
+
+    // Set visibility based on scroll offset
+    setVisible(scroll.offset < 0.9); // Hide when scrolled to 90% or more of the page
   });
 
   return (
-   <>
-     <group ref={group}>
-      <primitive object={scene} />
-    </group>
-   
-   </>
+    <>
+      <group ref={group} visible={visible}>
+        <primitive object={scene} />
+      </group>
+    </>
   );
 }
