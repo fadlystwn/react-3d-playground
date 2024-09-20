@@ -11,10 +11,10 @@ export default function Model() {
   const { nodes, materials, animations, scene } = useGLTF("/mystic_orb.glb");
   const { actions } = useAnimations(animations, scene);
   const scroll = useScroll();
-  const { size, camera } = useThree(); 
+  const { size, camera, gl } = useThree(); 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [visible, setVisible] = useState(true); // State to manage visibility
-
+  const [visible, setVisible] = useState(true);
+  
   const handleMouseMove = (event: MouseEvent) => {
     const x = (event.clientX / size.width) * 2 - 1;
     const y = -(event.clientY / size.height) * 2 + 1;
@@ -31,27 +31,41 @@ export default function Model() {
   useEffect(() => {
     if (actions && actions["Experiment"]) {
       const action = actions["Experiment"];
-      action.play();
+      action.play().paused;
       action.loop = THREE.LoopRepeat;
     } else {
       console.warn("Animation 'Experiment' not found");
     }
   }, [actions]);
 
-  const colors = [ 0x0000ff]; // Array of colors (red, green, blue)
-  
   useEffect(() => {
     if (materials) {
-      Object.entries(materials).forEach(([key, material], index) => {
+      Object.entries(materials).forEach(([key, material]) => {
         if (material instanceof THREE.MeshStandardMaterial) {
-          const color = new THREE.Color(colors[index % colors.length]); // Cycle through colors
-          material.color.set(color); // Apply the color
+          const color = new THREE.Color(0x0000ff);
+          material.color.set(color);
         }
       });
     }
   }, [materials]);
 
-  useFrame(() => {
+  useEffect(() => {
+    gl.setClearColor(new THREE.Color(0x000000)); // Set background to black
+  }, [gl]);
+
+  useFrame((state) => {
+    const elapsedTime = state.clock.getElapsedTime();
+
+    // Automatically move the mystic_orb
+    if (group.current) {
+      const radius = 0.25; // Radius of the circular movement
+      group.current.position.x = radius * Math.sin(elapsedTime); // Move in X
+      group.current.position.z = radius * Math.cos(elapsedTime); // Move in Z
+
+      // Optional: Add a subtle rotation effect
+      group.current.rotation.y += 0.01; // Rotate slowly
+    }
+
     if (actions && actions["Experiment"]) {
       const action = actions["Experiment"];
       const clipDuration = action.getClip()?.duration;
@@ -61,23 +75,20 @@ export default function Model() {
     }
 
     if (group.current) {
-      const rotationFactor = 0.5; 
+      const rotationFactor = 0.5;
       group.current.rotation.x = mousePos.y * rotationFactor;
       group.current.rotation.y = mousePos.x * rotationFactor;
     }
 
-    const zoomFactor = 10; 
+    const zoomFactor = 10;
     camera.position.z = 10 - scroll.offset * zoomFactor;
 
-    // Set visibility based on scroll offset
-    setVisible(scroll.offset < 0.9); // Hide when scrolled to 90% or more of the page
+    setVisible(scroll.offset < 0.9);
   });
 
   return (
-    <>
-      <group ref={group} visible={visible}>
-        <primitive object={scene} />
-      </group>
-    </>
+    <group ref={group} visible={visible} scale={2.5}>
+      <primitive object={scene} />
+    </group>
   );
 }
