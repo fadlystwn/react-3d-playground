@@ -39,11 +39,11 @@ export default function Scene() {
       className="fixed top-0 left-0 w-full h-screen"
       style={{ background: "#000" }} // Set dark background color here
     >
-      <ambientLight intensity={0.6} color={"#ffffff"} />
+      <ambientLight intensity={8} color={"#9333EA"} />
       <pointLight position={[10, 10, 10]} intensity={1} />
 
       <Suspense fallback={<Loader />}>
-        <ScrollControls damping={0.5} pages={3}>
+        <ScrollControls damping={0.5} pages={4}>
           <Model />
           <Particles count={100} mouse={mouse} />
 
@@ -73,10 +73,11 @@ export default function Scene() {
       <EffectComposer>
         <Bloom
           mipmapBlur
-          intensity={1.5}
-          luminanceThreshold={0.3}
-          luminanceSmoothing={0.7}
+          intensity={1}
+          luminanceThreshold={5}
+          luminanceSmoothing={1}
         />
+       
       </EffectComposer>
     </Canvas>
   );

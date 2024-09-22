@@ -4,17 +4,17 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Group } from "three";
 
-useGLTF.preload("/cyber_orb.glb");
+useGLTF.preload("/logo.glb");
 
 export default function Model() {
   const group = useRef<Group>(null);
-  const { nodes, materials, animations, scene } = useGLTF("/cyber_orb.glb");
+  const { nodes, materials, animations, scene } = useGLTF("/logo.glb");
   const { actions } = useAnimations(animations, scene);
   const scroll = useScroll();
   const { size, camera, gl } = useThree(); 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(true);
-  
+
   const handleMouseMove = (event: MouseEvent) => {
     const x = (event.clientX / size.width) * 2 - 1;
     const y = -(event.clientY / size.height) * 2 + 1;
@@ -39,17 +39,6 @@ export default function Model() {
   }, [actions]);
 
   useEffect(() => {
-    if (materials) {
-      Object.entries(materials).forEach(([key, material]) => {
-        if (material instanceof THREE.MeshStandardMaterial) {
-          const color = new THREE.Color(0x0000ff);
-          material.color.set(color);
-        }
-      });
-    }
-  }, [materials]);
-
-  useEffect(() => {
     gl.setClearColor(new THREE.Color(0x000000)); // Set background to black
   }, [gl]);
 
@@ -58,9 +47,12 @@ export default function Model() {
 
     // Automatically move the mystic_orb
     if (group.current) {
-      const radius = 0.25; // Radius of the circular movement
+      const radius = 0.30; // Radius of the circular movement
       group.current.position.x = radius * Math.sin(elapsedTime); // Move in X
       group.current.position.z = radius * Math.cos(elapsedTime); // Move in Z
+
+      // Decrease Y position (moving the model downward)
+      group.current.position.y = -2.5 - scroll.offset * 2; // Adjust this to control the downward movement speed
 
       // Optional: Add a subtle rotation effect
       group.current.rotation.y += 0.01; // Rotate slowly
@@ -87,8 +79,8 @@ export default function Model() {
   });
 
   return (
-    <group ref={group} visible={visible} scale={4.5}>
-      <primitive object={scene} />
+    <group ref={group} visible={visible} scale={4} >
+      <primitive object={scene}  />
     </group>
   );
 }
