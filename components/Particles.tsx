@@ -69,10 +69,10 @@ export default function Particles({ count, mouse }: ParticlesProps) {
 
   return (
     <>
-      <pointLight ref={light} distance={40} intensity={8} color="lightblue" />
+      <pointLight ref={light} distance={40} intensity={8} color="purple" /> {/* Neon blue light */}
       <instancedMesh ref={mesh} args={[null, null, count]}>
         <dodecahedronGeometry args={[0.2, 0]} />
-        <meshPhongMaterial color="#050505" />
+        <meshPhongMaterial color="#00ffff" /> {/* Neon blue particles */}
       </instancedMesh>
     </>
   );

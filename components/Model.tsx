@@ -4,11 +4,11 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Group } from "three";
 
-useGLTF.preload("/mystic_orb.glb");
+useGLTF.preload("/cyber_orb.glb");
 
 export default function Model() {
   const group = useRef<Group>(null);
-  const { nodes, materials, animations, scene } = useGLTF("/mystic_orb.glb");
+  const { nodes, materials, animations, scene } = useGLTF("/cyber_orb.glb");
   const { actions } = useAnimations(animations, scene);
   const scroll = useScroll();
   const { size, camera, gl } = useThree(); 
@@ -87,7 +87,7 @@ export default function Model() {
   });
 
   return (
-    <group ref={group} visible={visible} scale={2.5}>
+    <group ref={group} visible={visible} scale={4.5}>
       <primitive object={scene} />
     </group>
   );
