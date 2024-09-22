@@ -5,26 +5,17 @@ type CardProps = {
   title: string;
   description: string;
   isVisible: boolean;
-  delay: number; // New delay prop
 };
 
-const Card = forwardRef<HTMLDivElement, CardProps>(({ title, description, isVisible, delay }, ref) => {
+const Card = forwardRef<HTMLDivElement, CardProps>(({ title, description, isVisible }, ref) => {
   return (
     <motion.div
-      ref={ref}
+      ref={ref} // Forwarded ref
       style={{ height: '300px' }}
       className="p-6 rounded-lg shadow-lg backdrop-blur-lg bg-gradient-to-br from-purple-700/50 to-purple-900/20 border border-white/20 transform transition-all"
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={{ 
-        opacity: isVisible ? 1 : 0, 
-        scale: isVisible ? 1 : 0.9, 
-        y: isVisible ? 0 : 20 
-      }}
-      transition={{ 
-        duration: 0.8,
-        delay: isVisible ? delay : 0, // Use the delay prop
-        ease: [0.6, -0.05, 0.01, 0.99], // Custom easing function
-      }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+      transition={{ duration: 0.8 }}
     >
       <h3 className="text-2xl font-bold mb-4 text-white">{title}</h3>
       <p className="text-lg leading-relaxed text-white font-thin">{description}</p>
@@ -93,14 +84,13 @@ const FeaturesSection: FC = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            ref={(el) => (cardRefs.current[index] = el)}
+            ref={(el : any) => (cardRefs.current[index] = el)}
             className="transition duration-300"
           >
             <Card
               title={feature.title}
               description={feature.description}
               isVisible={visibleStates[index]}
-              delay={index * 0.2} // Stagger delay based on index
             />
           </div>
         ))}
