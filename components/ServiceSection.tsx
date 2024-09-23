@@ -36,7 +36,7 @@ const ServicesSection = () => {
       transition={{ duration: 1, ease: "easeInOut" }}
       className=" from-purple-700/50 to-purple-900/20 border border-white/90"
     >
-    <h1 className="text-lg md:text-2xl lg:text-6xl max-w-4xl font-extrabold text-center p-8 leading-relax text-purple-900 uppercase italic relative">
+    <h1 className="text-lg md:text-2xl lg:text-6xl max-w-4xl font-extrabold text-center p-8 leading-relax text-white uppercase italic relative">
       Our mission is to make blockchain accessible to everyone
       <span className="absolute inset-0 text-white text-stroke"></span>
     </h1>

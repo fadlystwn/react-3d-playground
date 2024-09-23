@@ -10,6 +10,8 @@ import AboutSection from "./AboutSection";  // Ensure this is the updated versio
 import Particles from "./Particles";
 import ServicesSection from "./ServiceSection";
 import FeaturesSection from "./FeatureSection";
+import FooterSection from "./Footer";
+import InnovationSection from "./InovationSection";
 
 function Loader() {
   const { progress } = useProgress();
@@ -54,18 +56,8 @@ export default function Scene() {
            <ServicesSection/>
            <FeaturesSection/>
             
-            <section
-              id="why-us"
-              className="h-screen flex flex-col items-center justify-center p-8"
-            >
-              <div className="p-10">
-                <p className="text-lg md:text-xl lg:text-3xl text-white max-w-4xl font-thin text-center">
-                  Trusted. Transparent. Decentralized.
-                  <br />
-                  "Our DApp platform is designed for users who demand more control over their digital interactions. We offer secure, transparent solutions that guarantee true ownership and trustless transactions, with no middlemen."
-                </p>
-              </div>
-            </section>
+            <InnovationSection/>
+            <FooterSection/>
           </Scroll>
         </ScrollControls>
       </Suspense>
