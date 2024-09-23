@@ -31,7 +31,7 @@ const ServicesSection = () => {
   // Animation variants for individual words
   const wordAnimation = {
     hidden: { opacity: 0, y: 30 },
-    visible: (i) => ({
+    visible: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
