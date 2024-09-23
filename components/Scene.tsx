@@ -52,11 +52,9 @@ export default function Scene() {
           {/* Scrollable HTML Content */}
           <Scroll html style={{ width: "100%" }}>
             <AboutSection /> 
-
-           <ServicesSection/>
-           <FeaturesSection/>
-            
+            <ServicesSection/>
             <InnovationSection/>
+            <FeaturesSection/>
             <FooterSection/>
           </Scroll>
         </ScrollControls>
