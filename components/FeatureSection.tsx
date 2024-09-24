@@ -50,7 +50,7 @@ const FeaturesSection: FC = () => {
   
 
   return (
-    <section id="features" className="py-12 px-4 text-white ">
+    <section id="features" className=" px-4 min-h-screen text-white ">
       <motion.div 
         className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4"
       >

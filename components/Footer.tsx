@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 const FooterSection = () => {
   return (
     <footer
+      style={{height: 980}}
       id="footer"
-      className="h-auto flex flex-col items-center justify-center mt-32 text-white"
+      className="flex flex-col items-center justify-center text-white py-24"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8, rotate: -10, y: 50 }}

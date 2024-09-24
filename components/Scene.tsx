@@ -45,7 +45,7 @@ export default function Scene() {
       <pointLight position={[10, 10, 10]} intensity={1} />
 
       <Suspense fallback={<Loader />}>
-        <ScrollControls damping={0.5} pages={4}>
+        <ScrollControls damping={0.5} pages={5}>
           <Model />
           <Particles count={100} mouse={mouse} />
 

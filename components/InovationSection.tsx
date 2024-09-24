@@ -28,7 +28,7 @@ const containerAnimation = {
 
 const InnovationSection = () => {
   return (
-    <section id="innovation" className="mb-32 flex flex-col items-center text-white">
+    <section id="innovation" className="min-h-screen flex flex-col items-center text-white">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
